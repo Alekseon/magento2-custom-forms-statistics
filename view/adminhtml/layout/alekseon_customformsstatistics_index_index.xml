@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Alekseon sp. z o.o.
+ * http://www.alekseon.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\StatisticsContainer" name="form_statistics">
+                <block class="Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics\NewRecordsChart" name="new_records"/>
+                <block class="Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics\Field" name="field">
+                    <block class="Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics\Field\Chart" name="chart"/>
+                    <block class="Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics\Field\Grid" name="grid"/>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

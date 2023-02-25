@@ -1,0 +1,28 @@
+<!--
+/**
+ * Copyright © Alekseon sp. z o.o.
+ * http://www.alekseon.com/
+ */
+-->
+
+
+<section>
+    <div class="admin__page-section-title">
+        <span class="title"><?= __('New Records') ?></span>
+    </div>
+    <div class="admin__page-section-content dashboard-container">
+        <div class="statistics">
+            <canvas id="chart_new_records" height="60"></canvas>
+            <script type="text/x-magento-init">
+            {
+                "#chart_new_records": {
+                    "Alekseon_CustomFormsStatistics/js/chart": {
+                        "chartData": <?= /* @noEscape */ json_encode($block->getChartData()) ?>,
+                        "type": "bar"
+                    }
+                }
+            }
+            </script>
+        </div>
+    </div>
+</section>

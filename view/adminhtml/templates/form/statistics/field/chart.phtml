@@ -1,0 +1,19 @@
+<!--
+/**
+ * Copyright © Alekseon sp. z o.o.
+ * http://www.alekseon.com/
+ */
+-->
+<div class="statistics">
+    <canvas id="chart_test_<?= $block->getField()->getId() ?>" style="padding: 20px"></canvas>
+    <script type="text/x-magento-init">
+    {
+        "#chart_test_<?= $block->getField()->getId() ?>": {
+            "Alekseon_CustomFormsStatistics/js/chart": {
+                "chartData": <?= /* @noEscape */ json_encode($block->getChartData()) ?>,
+                "type": "pie"
+            }
+        }
+    }
+    </script>
+</div>

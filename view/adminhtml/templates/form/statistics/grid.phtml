@@ -1,0 +1,113 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Template for \Magento\Backend\Block\Widget\Grid
+ *
+ *  getId()
+ *  getCollection()
+ *  getColumns()
+ *  getPagerVisibility()
+ *  getVarNamePage()
+ */
+
+/**
+ * @var \Magento\Backend\Block\Widget\Grid\Extended $block
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+$numColumns = count($block->getColumns());
+
+?>
+<?php if ($block->getCollection()): ?>
+    <div id="<?= $block->escapeHtml($block->getId()) ?>" data-grid-id="<?= $block->escapeHtml($block->getId()) ?>">
+        <?= $block->getMainButtonsHtml() ? '<div class="admin__filter-actions">' . $block->getMainButtonsHtml() . '</div>' : '' ?>
+        <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+            <table class="data-grid" id="<?= $block->escapeHtml($block->getId()) ?>_table">
+                <thead>
+                    <tr>
+                        <?php foreach ($block->getColumns() as $_column): ?>
+                            <?= $_column->getHeaderHtml() ?>
+                        <?php endforeach; ?>
+                    </tr>
+                    <tr class="data-grid-filters" data-role="filter-form">
+                        <?php $i = 0;
+                        foreach ($block->getColumns() as $_column): ?>
+                            <td data-column="<?= $block->escapeHtmlAttr($_column->getId()) ?>"
+                                <?= $_column->getHeaderHtmlProperty() ?>>
+                                <?= $_column->getFilterHtml() ?>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-layout-admin-2columns-left">
+            <div class="page-columns">
+                <div id="page:left" class="side-col">
+                    <div class="admin__page-nav">
+                        <div class="admin__page-nav-title">
+                            <strong>Statistics</strong>
+                        </div>
+                        <ul class="admin__page-nav-items">
+                            <li class="admin__page-nav-item">
+                                <span><?= __('Total Records') ?>: <?= $block->getCollection()->count() ?></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="main-col">
+                    <?= $block->getNewRecordsHtml('new_records') ?>
+                    <?php foreach ($block->getFormFields() as $field): ?>
+                        <?= $block->getFieldHtml($field) ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    /** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
+    $jsonHelper = $block->getData('jsonHelper');
+        $scriptString = <<<script
+
+    var deps = [];
+script;
+        $scriptString .= <<<script
+
+    deps.push('mage/adminhtml/grid');
+script;
+
+        $dependencyJsObject = ($block->getDependencyJsObject() ? 'registry' : '');
+        $scriptString .= <<<script
+
+    require(deps, function({$dependencyJsObject}){
+
+script;
+
+        $encodedId = /* @noEscape */ $jsonHelper->jsonEncode($block->getId());
+        $scriptString .= <<<script
+
+    {$block->escapeJs($block->getJsObjectName())} = new varienGrid({$encodedId},
+         '{$block->escapeJs($block->getGridUrl())}',
+         '{$block->escapeJs($block->getVarNamePage())}',
+         '{$block->escapeJs($block->getVarNameSort())}',
+         '{$block->escapeJs($block->getVarNameDir())}',
+         '{$block->escapeJs($block->getVarNameFilter())}'
+         );
+
+        {$block->escapeJs($block->getJsObjectName())}.useAjax = '{$block->escapeJs($block->getUseAjax())}';
+
+script;
+        $scriptString .= <<<script
+    //]]>
+
+});
+script;
+        ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php endif ?>
