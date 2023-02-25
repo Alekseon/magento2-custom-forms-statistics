@@ -29,16 +29,18 @@ class StatisticProviderRepository
     public function getStatisticProviderByAttribute($attribute)
     {
         $frontendInput = $attribute->getFrontendInput();
-        if (isset($this->statisticProviders[$frontendInput]['provider'])) {
-            return $this->statisticProviders[$frontendInput]['provider'];
+        if (!isset($this->statisticProviders[$frontendInput]['provider'])) {
+            $this->statisticProviders[$frontendInput]['provider'] = false;
+            if (isset($this->statisticProviders[$frontendInput]['factory'])) {
+                $factory = $this->statisticProviders[$frontendInput]['factory'];
+                $this->statisticProviders[$frontendInput]['provider'] = $factory->create();
+            }
         }
 
-        $this->statisticProviders[$frontendInput]['provider'] = false;
-        if (isset($this->statisticProviders[$frontendInput]['factory'])) {
-            $factory = $this->statisticProviders[$frontendInput]['factory'];
-            $this->statisticProviders[$frontendInput]['provider'] = $factory->create();
+        $provider = $this->statisticProviders[$frontendInput]['provider'];
+        if ($provider) {
+            $provider->setAttribute($attribute);
         }
-
-        return $this->statisticProviders[$frontendInput]['provider'];
+        return $provider;
     }
 }

@@ -12,8 +12,6 @@ use Alekseon\CustomFormsStatistics\Model\StatisticProviderRepository;
  */
 class Field extends \Magento\Backend\Block\Template
 {
-    protected $_template = 'Alekseon_CustomFormsStatistics::form/statistics/field.phtml';
-
     /**
      * @var StatisticProviderRepository
      */
@@ -37,7 +35,11 @@ class Field extends \Magento\Backend\Block\Template
      */
     protected function getStatisticProvider()
     {
-        return $this->statisticProviderRepository->getStatisticProviderByAttribute($this->getField());
+        $provider =  $this->statisticProviderRepository->getStatisticProviderByAttribute($this->getField());
+        if ($provider && !$provider->isApplicable()) {
+            return false;
+        }
+        return $provider;
     }
 
     /**
@@ -50,13 +52,15 @@ class Field extends \Magento\Backend\Block\Template
             return '';
         }
 
+        $this->_template = $this->getStatisticProvider()->getTemplate();
+
         return parent::_toHtml();
     }
 
     protected function getChartData()
     {
         if (!isset($this->chartData[$this->getField()->getId()])) {
-            $this->chartData[$this->getField()->getId()] = $this->getStatisticProvider()->getChartData($this->getCollection(), $this->getField());
+            $this->chartData[$this->getField()->getId()] = $this->getStatisticProvider()->getChartData($this->getCollection());
         }
 
         return $this->chartData[$this->getField()->getId()];
@@ -69,12 +73,23 @@ class Field extends \Magento\Backend\Block\Template
     public function getChartHtml()
     {
         $chartData = $this->getChartData();
-        return $this->getChildBlock('chart')->setField($this->getField())->setChartData($chartData)->toHtml();
+        return $this->getChildBlock('chart')
+            ->setField($this->getField())
+            ->setChartData($chartData)
+            ->toHtml();
     }
 
     public function getGridHtml()
     {
         $chartData = $this->getChartData();
-        return $this->getChildBlock('grid')->setField($this->getField())->setChartData($chartData)->toHtml();
+        return $this->getChildBlock('grid')
+            ->setField($this->getField())
+            ->setChartData($chartData)
+            ->toHtml();
+    }
+
+    public function getInfoArray()
+    {
+        return $this->getChartData()['info_array'];
     }
 }

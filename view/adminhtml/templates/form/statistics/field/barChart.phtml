@@ -1,0 +1,14 @@
+<!--
+/**
+ * Copyright © Alekseon sp. z o.o.
+ * http://www.alekseon.com/
+ */
+-->
+<section>
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml($this->getField()->getFrontendLabel()) ?></span>
+    </div>
+    <div class="admin__page-section-content dashboard-container">
+        <?= $block->getChartHtml(); ?>
+    </div>
+</section>

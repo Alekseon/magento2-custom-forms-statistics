@@ -13,7 +13,13 @@
         <arguments>
             <argument name="statisticProviders" xsi:type="array">
                 <item name="select" xsi:type="array">
-                    <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\SelectFieldFactory</item>
+                    <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\DefaultProviderFactory</item>
+                </item>
+                <item name="boolean" xsi:type="array">
+                    <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\DefaultProviderFactory</item>
+                </item>
+                <item name="rating" xsi:type="array">
+                    <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\RatingProviderFactory</item>
                 </item>
             </argument>
         </arguments>
