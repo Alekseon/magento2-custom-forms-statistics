@@ -9,6 +9,20 @@
         <span class="title"><?= $block->escapeHtml($this->getField()->getFrontendLabel()) ?></span>
     </div>
     <div class="admin__page-section-content dashboard-container">
-        <?= $block->getChartHtml(); ?>
+        <div class="col-m-3">
+            <table class="data-table admin__table-primary">
+                <tbody>
+                    <?php foreach ($block->getInfoArray() as $label => $value): ?>
+                    <tr>
+                        <td class="label"><?= $block->escapeHtml(__($label)) ?></td>
+                        <td><?= $block->escapeHtml($value) ?></td>
+                    </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-m-9">
+            <?= $block->getChartHtml(); ?>
+        </div>
     </div>
 </section>

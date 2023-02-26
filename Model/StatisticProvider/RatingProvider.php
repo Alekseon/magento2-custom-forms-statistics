@@ -28,22 +28,38 @@ class RatingProvider extends DefaultProvider
         $options = $this->getOptions();
         $labels = [];
         $values = [];
+
         foreach ($options as $key => $label) {
             $labels[] = $key;
             $values[$key] = 0;
         }
 
         $chartData = parent::getChartData($collection);
+        $average = 0;
+        $totalCount = 0;
+        $rateSum = 0;
+        $notSelected = 0;
         foreach ($this->chartValues as $value => $count) {
             if (isset($values[$value])) {
                 $values[$value] = $count;
+                $rateSum += $value * $count;
+                $totalCount += $count;
+            } else {
+                $notSelected += $count;
             }
         }
+        if ($totalCount) {
+            $average = $rateSum / $totalCount;
+        }
 
+        $chartData['colors'] = ['#166a8f'];
         $chartData['values'] = array_values($values);
         $chartData['labels'] = $labels;
-        $chartData['colors'] = ['#8549ba'];
         $chartData['type'] = 'bar';
+        $chartData['info_array'] = [
+            'Average' => round($average, 2),
+            'Not Selected' => $notSelected,
+        ];
         return $chartData;
     }
 }

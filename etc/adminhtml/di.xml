@@ -15,6 +15,9 @@
                 <item name="select" xsi:type="array">
                     <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\DefaultProviderFactory</item>
                 </item>
+                <item name="multiselect" xsi:type="array">
+                    <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\MultiselectProviderFactory</item>
+                </item>
                 <item name="boolean" xsi:type="array">
                     <item name="factory" xsi:type="object">Alekseon\CustomFormsStatistics\Model\StatisticProvider\DefaultProviderFactory</item>
                 </item>

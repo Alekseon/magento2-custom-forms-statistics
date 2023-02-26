@@ -21,7 +21,6 @@ class DefaultProvider
     {
         return 'Alekseon_CustomFormsStatistics::form/statistics/field/pieChartAndGrid.phtml';
     }
-
     const COLORS = [
         '#f67019',
         '#537bc4',
@@ -29,9 +28,12 @@ class DefaultProvider
         '#166a8f',
         '#00a950',
         '#f53794',
-        '#58595b',
+        '#58c97b',
         '#8549ba'
     ];
+
+    const OTHER_COLOR = '#888888';
+    const NOT_SELECTED_COLOR = '#777777';
 
     /**
      * @param $attribute
@@ -71,9 +73,9 @@ class DefaultProvider
         $collection->getSelect()->order(new \Zend_Db_Expr('count DESC'));
         $results = $collection->getConnection()->fetchAll($collection->getSelect());
 
-        $colors = [];
         $labels = [];
         $values = [];
+        $colors = [];
 
         $all = $collection->count();
         $others = 0;
@@ -83,11 +85,14 @@ class DefaultProvider
         $options = $this->getOptions();
         foreach ($results as $result) {
             $value = $result[$this->attribute->getAttributeCode()];
+            $count = $result['count'];
+            $this->chartValues[$value] = $count;
+            if (!$value) {
+                continue;
+            }
+            $totalCount += $count;
             if (array_key_exists($value, $options)) {
-                $count = $result['count'];
-                $this->chartValues[$value] = $count;
                 $label = $options[$value] ?? $value;
-                $totalCount += $count;
                 if (isset(self::COLORS[$i])) {
                     $colors[$i] = self::COLORS[$i];
                     $values[$i] = $count;
@@ -100,18 +105,18 @@ class DefaultProvider
         }
 
         if ($others) {
-            $colors[$i] = '#888888';
-            $values[$i] = $others;
-            $labels[$i] = ' ' . __('Others');
-            $i ++;
+            $colors[] = self::OTHER_COLOR;
+            $values[] = $others;
+            $labels[] = ' ' . __('Others');
         }
 
         $notSelected = $all - $totalCount;
+        $this->chartValues[0] = $notSelected;
 
         if ($notSelected) {
-            $colors[$i] = '#777777';
-            $values[$i] = $notSelected;
-            $labels[$i] = ' ' . __('Not Selected');
+            $colors[] = self::NOT_SELECTED_COLOR;
+            $values[] = $notSelected;
+            $labels[] = ' ' . __('Not Selected');
         }
 
         return [
@@ -119,6 +124,8 @@ class DefaultProvider
             'labels' => $labels,
             'values' => $values,
             'type' => 'pie',
+            'info_array' => [],
         ];
     }
+
 }
