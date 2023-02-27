@@ -55,7 +55,12 @@ class DefaultProvider
      */
     protected function getOptions()
     {
-        return $this->attribute->getInputTypeModel()->getSourceModel()->getOptions();
+        $sourceModel = $this->attribute->getInputTypeModel()->getSourceModel();
+        if ($sourceModel) {
+            return $sourceModel->getOptions();
+        } else {
+            return [];
+        }
     }
 
     /**
