@@ -50,11 +50,13 @@ class NewRecordsChart extends \Magento\Backend\Block\Template
 
             }
         }
+        
+        $colors = array_fill(0,  count($values), '#4dc9f6');
 
         return [
             'labels' => array_values($labels),
             'values' => array_values($values),
-            'colors' => ['#4dc9f6'],
+            'colors' => $colors,
         ];
     }
 }
