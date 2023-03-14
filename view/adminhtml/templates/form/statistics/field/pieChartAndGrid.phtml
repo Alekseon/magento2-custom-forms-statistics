@@ -9,7 +9,7 @@
         <span class="title"><?= $block->escapeHtml($this->getField()->getFrontendLabel()) ?></span>
     </div>
     <div class="admin__page-section-content dashboard-container">
-        <div class="col-m-3">
+        <div class="col-m-3 piechart-container">
             <?= $block->getChartHtml(); ?>
         </div>
         <div class="col-m-9">
@@ -17,3 +17,9 @@
         </div>
     </div>
 </section>
+
+<style>
+    .piechart-container canvas {
+        height: 200px;
+    }
+</style>
