@@ -31,17 +31,31 @@
             var yValues = this.options.chartData.values;
             var barColors = this.options.chartData.colors;
 
-            return {
-                type: this.options.type,
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        data: yValues
-                    }]
-                },
-                options: { plugins: { legend: { display: false }, } }
-            };
+            if(this.options.type === 'pie'){
+                return {
+                    type: this.options.type,
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues,
+                        }]
+                    },
+                    options: { plugins: { legend: { display: false }, }, maintainAspectRatio: false }
+                };
+            } else {
+                return {
+                    type: this.options.type,
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues,
+                        }]
+                    },
+                    options: { plugins: { legend: { display: false }, } }
+                };
+            }
         }
     });
 
