@@ -55,7 +55,12 @@ class DefaultProvider
      */
     protected function getOptions()
     {
-        return $this->attribute->getInputTypeModel()->getSourceModel()->getOptions();
+        $sourceModel = $this->attribute->getInputTypeModel()->getSourceModel();
+        if ($sourceModel) {
+            return $sourceModel->getOptions();
+        } else {
+            return [];
+        }
     }
 
     /**
@@ -63,9 +68,11 @@ class DefaultProvider
      */
     public function getChartData($collection)
     {
+        $collection = clone $collection;
         $collection->addAttributeToSelect($this->attribute->getAttributeCode());
         $collection->getSelect()->reset(Select::GROUP);
         $collection->getSelect()->reset(Select::ORDER);
+        $collection->getSelect()->reset(Select::COLUMNS);
         $collection->addAttributeToFilter($this->attribute->getAttributeCode(), ['notnull' => true]);
         $countExpr = new \Zend_Db_Expr('COUNT(*)');
         $collection->getSelect()->columns(['count' => $countExpr]);
@@ -77,7 +84,7 @@ class DefaultProvider
         $values = [];
         $colors = [];
 
-        $all = $collection->count();
+        $all = 0;
         $others = 0;
 
         $i = 0;
@@ -86,12 +93,13 @@ class DefaultProvider
         foreach ($results as $result) {
             $value = $result[$this->attribute->getAttributeCode()];
             $count = $result['count'];
+            $all += $count;
             $this->chartValues[$value] = $count;
             if (!$value) {
                 continue;
             }
-            $totalCount += $count;
             if (array_key_exists($value, $options)) {
+                $totalCount += $count;
                 $label = $options[$value] ?? $value;
                 if (isset(self::COLORS[$i])) {
                     $colors[$i] = self::COLORS[$i];

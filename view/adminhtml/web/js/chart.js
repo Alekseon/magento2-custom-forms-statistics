@@ -40,7 +40,14 @@
                         data: yValues
                     }]
                 },
-                options: { plugins: { legend: { display: false }, } }
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    plugins: {
+                        legend: { display: false },
+                    }
+                }
             };
         }
     });

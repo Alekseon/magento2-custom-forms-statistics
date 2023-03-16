@@ -52,7 +52,8 @@ class RatingProvider extends DefaultProvider
             $average = $rateSum / $totalCount;
         }
 
-        $chartData['colors'] = ['#166a8f'];
+        $colors = array_fill(0,  count($values), '#166a8f');
+        $chartData['colors'] = $colors;
         $chartData['values'] = array_values($values);
         $chartData['labels'] = $labels;
         $chartData['type'] = 'bar';
