@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - fix for backward compatibility
 - fix for older chart.js version (magento 2.4.3)
+- fix for statistic calculations
 
 ## [100.0.0] - 2023-02-27
 ### Added
