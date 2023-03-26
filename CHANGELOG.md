@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - hide not-filterable fields from statistics filter
+### Fixed
+- fixed rate chart height
 
 ## [100.0.1] - 2023-03-16
 ### Fixed
