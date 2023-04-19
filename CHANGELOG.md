@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 
 ## [Unreleased]
+
+## [100.0.2] - 2023-04-19
 ### Changed
 - hide not-filterable fields from statistics filter
 ### Fixed
