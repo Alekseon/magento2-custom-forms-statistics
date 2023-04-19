@@ -12,7 +12,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [100.0.2] - 2023-04-19
+### Changed
+- hide not-filterable fields from statistics filter
+### Fixed
+- fixed rate chart height
+
 ## [100.0.1] - 2023-03-16
+### Fixed
 - fix for backward compatibility
 - fix for older chart.js version (magento 2.4.3)
 - fix for statistic calculations

@@ -68,6 +68,9 @@ class Grid extends \Alekseon\CustomFormsBuilder\Block\Adminhtml\FormRecord\Grid
     public function addColumn($columnId, $column)
     {
         $column['sortable'] = false;
-        return parent::addColumn($columnId, $column);
+        if (!isset($column['filter']) || $column['filter']) {
+            return parent::addColumn($columnId, $column);
+        }
+        return $this;
     }
 }

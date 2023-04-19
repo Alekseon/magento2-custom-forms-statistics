@@ -5,7 +5,9 @@
  */
 -->
 <div class="statistics" style="padding: 10px">
-    <canvas id="chart_field_<?= $block->getField()->getId() ?>"></canvas>
+    <canvas id="chart_field_<?= $block->getField()->getId() ?>"
+        <?php if ($block->getHeight()): ?>height="<?= $block->getHeight() ?>px"<?php endif ?>
+    ></canvas>
     <script type="text/x-magento-init">
     {
         "#chart_field_<?= $block->getField()->getId() ?>": {

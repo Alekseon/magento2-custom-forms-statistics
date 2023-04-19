@@ -57,6 +57,7 @@ class RatingProvider extends DefaultProvider
         $chartData['values'] = array_values($values);
         $chartData['labels'] = $labels;
         $chartData['type'] = 'bar';
+        $chartData['height'] = 50;
         $chartData['info_array'] = [
             'Average' => round($average, 2),
             'Not Selected' => $notSelected,

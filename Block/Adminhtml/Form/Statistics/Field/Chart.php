@@ -19,4 +19,12 @@ class Chart extends \Magento\Backend\Block\Template
     {
         return isset($this->getChartData()['type']) ? $this->getChartData()['type'] : 'pie';
     }
+
+    /**
+     * @return false|int
+     */
+    public function getHeight()
+    {
+        return $this->getChartData()['height'] ?? false;
+    }
 }
