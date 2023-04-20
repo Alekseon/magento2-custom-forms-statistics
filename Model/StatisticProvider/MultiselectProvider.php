@@ -20,21 +20,25 @@ class MultiselectProvider extends DefaultProvider
             $optionLabels[$optionId] = ' ' . $optionLabel;
         }
 
-        $notSelected = $this->chartValues[0] ?? 0;
+        $notSelected = $chartData['records_count'];
         $others = 0;
         foreach ($this->chartValues as $value => $count) {
             if ($value) {
                 $selectedOptions = explode(',', $value);
+                $isSelected = false;
                 foreach ($selectedOptions as $optionId) {
                     if (isset($values[$optionId])) {
                         $values[$optionId] += $count;
+                        $isSelected = true;
                         continue;
                     }
                     if (isset($optionLabels[$optionId])) {
                         $values[$optionId] = $count;
-                    } else {
-                        $others ++;
+                        $isSelected = true;
                     }
+                }
+                if ($isSelected) {
+                    $notSelected--;
                 }
             }
         }

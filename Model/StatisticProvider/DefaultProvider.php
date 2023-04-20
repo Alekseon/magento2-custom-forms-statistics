@@ -113,7 +113,7 @@ class DefaultProvider
             $value = $result[$this->attribute->getAttributeCode()];
             $count = $result['count'];
             $this->chartValues[$value] = $count;
-            if (!$value) {
+            if ($value === null) {
                 continue;
             }
             if (array_key_exists($value, $options)) {
@@ -146,6 +146,7 @@ class DefaultProvider
         }
 
         return [
+            'records_count' => $all,
             'colors' => $colors,
             'labels' => $labels,
             'values' => $values,
