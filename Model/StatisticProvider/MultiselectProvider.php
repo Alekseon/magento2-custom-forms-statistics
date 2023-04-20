@@ -9,7 +9,7 @@ class MultiselectProvider extends DefaultProvider
 {
     public function getChartData($collection)
     {
-        $values = [];
+        $selectedValues = [];
         $labels = [];
         $colors = [];
 
@@ -24,32 +24,35 @@ class MultiselectProvider extends DefaultProvider
         $others = 0;
         foreach ($this->chartValues as $value => $count) {
             if ($value) {
+                $selectedCount = 0;
                 $selectedOptions = explode(',', $value);
-                $isSelected = false;
                 foreach ($selectedOptions as $optionId) {
-                    if (isset($values[$optionId])) {
-                        $values[$optionId] += $count;
-                        $isSelected = true;
+                    if (isset($selectedValues[$optionId])) {
+                        $selectedValues[$optionId] += $count;
+                        $selectedCount = $count;
                         continue;
                     }
                     if (isset($optionLabels[$optionId])) {
-                        $values[$optionId] = $count;
-                        $isSelected = true;
+                        $selectedValues[$optionId] = $count;
+                        $selectedCount = $count;
                     }
                 }
-                if ($isSelected) {
-                    $notSelected--;
+                if ($selectedCount) {
+                    $notSelected -= $selectedCount;
                 }
             }
         }
 
         $i = 0;
-        arsort($values);
+        arsort($selectedValues);
 
-        foreach ($values as $optionId => $count) {
+        $values = [];
+
+        foreach ($selectedValues as $optionId => $count) {
             if (isset(self::COLORS[$i])) {
                 $labels[] = $optionLabels[$optionId];
                 $colors[] = self::COLORS[$i];
+                $values[] =  $count;
                 $i++;
             } else {
                 $others += $count;
