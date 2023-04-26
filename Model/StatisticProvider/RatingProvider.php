@@ -29,7 +29,7 @@ class RatingProvider extends DefaultProvider
         $labels = [];
         $values = [];
 
-        foreach ($options as $key => $label) {
+        foreach (array_keys($options) as $key) {
             $labels[] = $key;
             $values[$key] = 0;
         }

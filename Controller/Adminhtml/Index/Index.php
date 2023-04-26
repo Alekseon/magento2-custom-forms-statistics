@@ -5,10 +5,12 @@
  */
 namespace Alekseon\CustomFormsStatistics\Controller\Adminhtml\Index;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
+
 /**
  *
  */
-class Index extends \Alekseon\CustomFormsBuilder\Controller\Adminhtml\FormRecord
+class Index extends \Alekseon\CustomFormsBuilder\Controller\Adminhtml\FormRecord implements HttpGetActionInterface
 {
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void

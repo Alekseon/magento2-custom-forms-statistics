@@ -116,6 +116,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return false;
     }
 
+    /**
+     * @param $item
+     * @return false
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getRowUrl($item)
     {
         return false;

@@ -54,6 +54,11 @@ class Grid extends \Alekseon\CustomFormsBuilder\Block\Adminhtml\FormRecord\Grid
     {
     }
 
+    /**
+     * @param $column
+     * @return $this|Grid
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function _setCollectionOrder($column)
     {
         return $this;

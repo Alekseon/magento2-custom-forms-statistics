@@ -9,7 +9,6 @@ class MultiselectProvider extends DefaultProvider
 {
     public function getChartData($collection)
     {
-        $selectedValues = [];
         $labels = [];
         $colors = [];
 
@@ -22,32 +21,10 @@ class MultiselectProvider extends DefaultProvider
 
         $notSelected = $chartData['records_count'];
         $others = 0;
-        foreach ($this->chartValues as $value => $count) {
-            if ($value) {
-                $selectedCount = 0;
-                $selectedOptions = explode(',', $value);
-                foreach ($selectedOptions as $optionId) {
-                    if (isset($selectedValues[$optionId])) {
-                        $selectedValues[$optionId] += $count;
-                        $selectedCount = $count;
-                        continue;
-                    }
-                    if (isset($optionLabels[$optionId])) {
-                        $selectedValues[$optionId] = $count;
-                        $selectedCount = $count;
-                    }
-                }
-                if ($selectedCount) {
-                    $notSelected -= $selectedCount;
-                }
-            }
-        }
+        $values = [];
+        $selectedValues = $this->getSelectedValues($optionLabels, $notSelected);
 
         $i = 0;
-        arsort($selectedValues);
-
-        $values = [];
-
         foreach ($selectedValues as $optionId => $count) {
             if (isset(self::COLORS[$i])) {
                 $labels[] = $optionLabels[$optionId];
@@ -76,5 +53,39 @@ class MultiselectProvider extends DefaultProvider
         $chartData['labels'] = array_values($labels);
 
         return $chartData;
+    }
+
+    /**
+     * @param $optionLabels
+     * @param $notSelected
+     * @return array
+     */
+    private function getSelectedValues($optionLabels, &$notSelected)
+    {
+        $selectedValues = [];
+        foreach ($this->chartValues as $value => $count) {
+            if (!$value) {
+                continue;
+            }
+            $selectedCount = 0;
+            $selectedOptions = explode(',', $value);
+            foreach ($selectedOptions as $optionId) {
+                if (isset($selectedValues[$optionId])) {
+                    $selectedValues[$optionId] += $count;
+                    $selectedCount = $count;
+                    continue;
+                }
+                if (isset($optionLabels[$optionId])) {
+                    $selectedValues[$optionId] = $count;
+                    $selectedCount = $count;
+                }
+            }
+            if ($selectedCount) {
+                $notSelected -= $selectedCount;
+            }
+        }
+
+        arsort($selectedValues);
+        return $selectedValues;
     }
 }

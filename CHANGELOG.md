@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - display default label instead of store label as fieldset label
+- code quality fixes
 
 ## [100.0.3] - 2023-04-19
 ### Fixed
