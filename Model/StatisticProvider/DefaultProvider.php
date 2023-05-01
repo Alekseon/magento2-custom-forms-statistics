@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Model\StatisticProvider;
 
 use Alekseon\AlekseonEav\Model\ResourceModel\Entity\Collection;
