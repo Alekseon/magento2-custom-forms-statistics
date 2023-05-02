@@ -58,6 +58,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return $this;
     }
 
+    /**
+     * Initialize grid columns
+     *
+     * @return $this
+     */
     protected function _prepareColumns()
     {
         parent::_prepareColumns();
@@ -89,6 +94,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'sortable' => false,
             ]
         );
+
+        return $this;
     }
 
     protected function _prepareCollection()
