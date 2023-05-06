@@ -17,16 +17,17 @@ use Magento\Framework\DataObject;
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 {
     /**
+     * @var bool
+     */
+    protected $_filterVisibility = false;
+    /**
      * @var EntityFactory
      */
-    protected $entityFactory;
-    protected $_filterVisibility = false;
-
-    //protected $_headersVisibility = false;
+    private $entityFactory;
     /**
      * @var
      */
-    protected $formAttribute;
+    private $formAttribute;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context

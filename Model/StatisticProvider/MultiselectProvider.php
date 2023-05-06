@@ -65,7 +65,7 @@ class MultiselectProvider extends DefaultProvider
     private function getSelectedValues($optionLabels, &$notSelected)
     {
         $selectedValues = [];
-        foreach ($this->chartValues as $value => $count) {
+        foreach ($this->getChartValues() as $value => $count) {
             if (!$value) {
                 continue;
             }

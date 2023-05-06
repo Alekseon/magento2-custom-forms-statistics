@@ -14,8 +14,11 @@ use Magento\Framework\DB\Select;
  */
 class DefaultProvider
 {
-    protected $attribute;
-    protected $chartValues = [];
+    private $attribute;
+    /**
+     * @var array
+     */
+    private $chartValues = [];
 
     /**
      * @return string
@@ -56,7 +59,7 @@ class DefaultProvider
     /**
      * @return mixed
      */
-    protected function getOptions()
+    public function getOptions()
     {
         $sourceModel = $this->attribute->getInputTypeModel()->getSourceModel();
         if ($sourceModel) {
@@ -157,4 +160,11 @@ class DefaultProvider
         ];
     }
 
+    /**
+     * @return array
+     */
+    public function getChartValues()
+    {
+        return $this->chartValues;
+    }
 }

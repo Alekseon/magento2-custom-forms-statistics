@@ -15,7 +15,7 @@ class StatisticsContainer extends \Magento\Backend\Block\Widget\Grid\Container
     /**
      * @var \Magento\Framework\Registry
      */
-    protected $coreRegistry;
+    private $coreRegistry;
 
     /**
      * FormRecord constructor.

@@ -13,7 +13,10 @@ namespace Alekseon\CustomFormsStatistics\Model;
 class StatisticProviderRepository
 {
 
-    protected $statisticProviders;
+    /**
+     * @var array
+     */
+    private $statisticProviders;
 
     /**
      * @param array $statisticProviders

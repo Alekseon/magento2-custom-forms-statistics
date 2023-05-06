@@ -17,8 +17,8 @@ class Field extends \Magento\Backend\Block\Template
     /**
      * @var StatisticProviderRepository
      */
-    protected $statisticProviderRepository;
-    protected $chartData = [];
+    private $statisticProviderRepository;
+    private $chartData = [];
 
     /**
      * @param \Magento\Backend\Block\Widget\Context $context
@@ -35,7 +35,7 @@ class Field extends \Magento\Backend\Block\Template
     /**
      * @return mixed
      */
-    protected function getStatisticProvider()
+    private function getStatisticProvider()
     {
         $provider =  $this->statisticProviderRepository->getStatisticProviderByAttribute($this->getField());
         if ($provider && !$provider->isApplicable()) {
@@ -59,7 +59,7 @@ class Field extends \Magento\Backend\Block\Template
         return parent::_toHtml();
     }
 
-    protected function getChartData()
+    private function getChartData()
     {
         if (!isset($this->chartData[$this->getField()->getId()])) {
             $this->chartData[$this->getField()->getId()] = $this->getStatisticProvider()->getChartData($this->getCollection());
