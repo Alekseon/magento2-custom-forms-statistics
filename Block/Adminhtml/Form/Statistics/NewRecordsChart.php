@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics;
 
 /**
@@ -50,7 +52,7 @@ class NewRecordsChart extends \Magento\Backend\Block\Template
 
             }
         }
-        
+
         $colors = array_fill(0,  count($values), '#4dc9f6');
 
         return [

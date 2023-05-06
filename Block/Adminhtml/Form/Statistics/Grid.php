@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics;
 
 /**
@@ -54,6 +56,11 @@ class Grid extends \Alekseon\CustomFormsBuilder\Block\Adminhtml\FormRecord\Grid
     {
     }
 
+    /**
+     * @param $column
+     * @return $this|Grid
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function _setCollectionOrder($column)
     {
         return $this;

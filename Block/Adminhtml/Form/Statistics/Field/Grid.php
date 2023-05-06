@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Block\Adminhtml\Form\Statistics\Field;
 
 use Magento\Framework\Data\Collection;
@@ -15,16 +17,17 @@ use Magento\Framework\DataObject;
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 {
     /**
+     * @var bool
+     */
+    protected $_filterVisibility = false;
+    /**
      * @var EntityFactory
      */
-    protected $entityFactory;
-    protected $_filterVisibility = false;
-
-    //protected $_headersVisibility = false;
+    private $entityFactory;
     /**
      * @var
      */
-    protected $formAttribute;
+    private $formAttribute;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
@@ -56,6 +59,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return $this;
     }
 
+    /**
+     * Initialize grid columns
+     *
+     * @return $this
+     */
     protected function _prepareColumns()
     {
         parent::_prepareColumns();
@@ -87,6 +95,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'sortable' => false,
             ]
         );
+
+        return $this;
     }
 
     protected function _prepareCollection()
@@ -116,6 +126,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return false;
     }
 
+    /**
+     * @param $item
+     * @return false
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getRowUrl($item)
     {
         return false;

@@ -3,12 +3,16 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Controller\Adminhtml\Index;
+
+use Magento\Framework\App\Action\HttpGetActionInterface;
 
 /**
  *
  */
-class Index extends \Alekseon\CustomFormsBuilder\Controller\Adminhtml\FormRecord
+class Index extends \Alekseon\CustomFormsBuilder\Controller\Adminhtml\FormRecord implements HttpGetActionInterface
 {
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void

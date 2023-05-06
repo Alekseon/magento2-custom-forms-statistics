@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Model;
 
 /**
@@ -11,7 +13,10 @@ namespace Alekseon\CustomFormsStatistics\Model;
 class StatisticProviderRepository
 {
 
-    protected $statisticProviders;
+    /**
+     * @var array
+     */
+    private $statisticProviders;
 
     /**
      * @param array $statisticProviders

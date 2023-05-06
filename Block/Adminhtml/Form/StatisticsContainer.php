@@ -3,6 +3,8 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Block\Adminhtml\Form;
 
 /**
@@ -13,7 +15,7 @@ class StatisticsContainer extends \Magento\Backend\Block\Widget\Grid\Container
     /**
      * @var \Magento\Framework\Registry
      */
-    protected $coreRegistry;
+    private $coreRegistry;
 
     /**
      * FormRecord constructor.

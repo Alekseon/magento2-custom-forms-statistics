@@ -3,9 +3,10 @@
  * Copyright © Alekseon sp. z o.o.
  * http://www.alekseon.com/
  */
+declare(strict_types=1);
+
 namespace Alekseon\CustomFormsStatistics\Model\StatisticProvider;
 
-use Magento\Framework\DB\Select;
 /**
  *
  */
@@ -29,7 +30,7 @@ class RatingProvider extends DefaultProvider
         $labels = [];
         $values = [];
 
-        foreach ($options as $key => $label) {
+        foreach (array_keys($options) as $key) {
             $labels[] = $key;
             $values[$key] = 0;
         }
@@ -39,7 +40,7 @@ class RatingProvider extends DefaultProvider
         $totalCount = 0;
         $rateSum = 0;
         $notSelected = 0;
-        foreach ($this->chartValues as $value => $count) {
+        foreach ($this->getChartValues() as $value => $count) {
             if (isset($values[$value])) {
                 $values[$value] = $count;
                 $rateSum += $value * $count;
