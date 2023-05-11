@@ -23,7 +23,7 @@ class AddStatisticsButtonPlugin
         $form = $gridContainer->getCurrentForm();
         if ($form && $form->getId()) {
             $gridContainer->addButton(
-                'create_refund',
+                'statistics',
                 [
                     'label' => __('Statistics'),
                     'onclick' => 'setLocation(\'' . $this->getStatisticsUrl($gridContainer, $form) . '\')',
